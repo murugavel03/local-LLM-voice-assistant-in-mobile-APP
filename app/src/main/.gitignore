@@ -1,0 +1,13 @@
+(
+echo *.iml
+echo .gradle/
+echo .idea/
+echo local.properties
+echo .DS_Store
+echo build/
+echo app/build/
+echo /captures
+echo .externalNativeBuild
+echo .cxx
+echo app/src/main/assets/*.task
+) > .gitignore
