@@ -14,8 +14,6 @@ import java.util.Locale
  * NOTE: EXTRA_PREFER_OFFLINE only works if the user has downloaded the
  * on-device speech recognition pack:
  *   Settings > System > Languages & input > On-device speech recognition
- * Otherwise it silently falls back to online recognition. Prompt the
- * user to enable this on first launch if you want a hard offline guarantee.
  */
 class SpeechToText(context: Context) {
 

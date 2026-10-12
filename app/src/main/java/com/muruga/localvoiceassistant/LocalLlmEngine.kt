@@ -11,19 +11,19 @@ import java.io.FileOutputStream
  * Model is bundled inside the APK at app/src/main/assets/<MODEL_ASSET_NAME>.
  * On first run, it's copied from the compressed asset into internal storage
  * (context.filesDir), since MediaPipe's LlmInference needs a real file path
- * on disk — it can't read directly out of the APK's assets.
+ * on disk -- it can't read directly out of the APK's assets.
+ *
+ * IMPORTANT: place your model file at app/src/main/assets/gemma3-1B-it-int4.task
+ * (filename must match MODEL_ASSET_NAME exactly, including case).
  */
 class LocalLlmEngine(private val context: Context) {
 
     companion object {
-        // Must exactly match the filename you place in app/src/main/assets/
         const val MODEL_ASSET_NAME = "gemma3-1B-it-int4.task"
     }
 
-    /** Copies the model from assets to internal storage on first launch only. */
     private fun ensureModelOnDisk(): String {
         val outFile = File(context.filesDir, MODEL_ASSET_NAME)
-
         if (!outFile.exists()) {
             context.assets.open(MODEL_ASSET_NAME).use { input ->
                 FileOutputStream(outFile).use { output ->
@@ -38,18 +38,14 @@ class LocalLlmEngine(private val context: Context) {
         val modelPath = ensureModelOnDisk()
         val options = LlmInference.LlmInferenceOptions.builder()
             .setModelPath(modelPath)
-            .setMaxTokens(512)
+            .setMaxTokens(1024)
             .setMaxTopK(40)
             .build()
         LlmInference.createFromOptions(context, options)
     }
 
-    /** Blocking, single-shot response. Call from a background thread/coroutine. */
-    fun generateResponse(prompt: String): String {
-        return llmInference.generateResponse(prompt)
-    }
+    fun generateResponse(prompt: String): String = llmInference.generateResponse(prompt)
 
-    /** Streaming response — better UX so TTS/UI can start as tokens arrive. */
     fun generateResponseAsync(
         prompt: String,
         onPartial: (String) -> Unit,

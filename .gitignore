@@ -8,4 +8,6 @@ app/build/
 /captures
 .externalNativeBuild
 .cxx
+
+# Model file - too large for git, distribute separately (see README)
 app/src/main/assets/*.task

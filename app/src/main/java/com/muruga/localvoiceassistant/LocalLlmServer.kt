@@ -5,14 +5,12 @@ import org.json.JSONObject
 import java.io.IOException
 
 /**
- * Exposes the on-device LLM over HTTP on the local network.
+ * Exposes the on-device LLM over HTTP on the local network (Server mode).
  *
  * Once started, any device on the same WiFi can POST to:
  *   http://<phone-ip>:8080/generate
  *   Body: {"prompt": "your message here"}
  *   Response: {"response": "..."}
- *
- * Find <phone-ip> via Settings > About Phone > Status > IP address.
  */
 class LocalLlmServer(
     private val llm: LocalLlmEngine,

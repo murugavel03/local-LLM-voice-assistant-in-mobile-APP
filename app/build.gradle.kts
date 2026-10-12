@@ -48,13 +48,17 @@ dependencies {
     // MediaPipe GenAI (on-device LLM inference)
     implementation("com.google.mediapipe:tasks-genai:0.10.27")
 
-    // Lightweight embedded HTTP server for LAN access to the local LLM
+    // Lightweight embedded HTTP server for LAN access to the local LLM (Server mode)
     implementation("org.nanohttpd:nanohttpd:2.3.1")
+
+    // On-device OCR for document/image Q&A
+    implementation("com.google.mlkit:text-recognition:16.0.1")
 
     // Core / Compose
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
     implementation("androidx.activity:activity-compose:1.9.1")
+    implementation("androidx.activity:activity-ktx:1.9.1")
 
     val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
     implementation(composeBom)
@@ -64,6 +68,9 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+
+    // Coroutines support for await() on ML Kit Tasks
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
 }
